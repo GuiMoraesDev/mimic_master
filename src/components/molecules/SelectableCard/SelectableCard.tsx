@@ -1,10 +1,23 @@
 import { Card, CardProps } from "@/components/atoms/Card";
 import { twMerge } from "tailwind-merge";
 
-export const SelectableCard = (props: CardProps) => {
+type SelectableCardProps = CardProps & {
+  value: string;
+  onSelectChange?: (value: string) => void;
+};
+export const SelectableCard = ({
+  value,
+  onSelectChange,
+  ...props
+}: SelectableCardProps) => {
   return (
     <label>
-      <input type="checkbox" className="absolute opacity-0 peer" />
+      <input
+        type="checkbox"
+        value={value}
+        className="absolute opacity-0 peer"
+        onChange={(e) => onSelectChange?.(e.target.value)}
+      />
       <Card
         {...props}
         className={twMerge(
